@@ -50,6 +50,20 @@ class Points extends AbstractEndpoint
     /**
      * @throws InvalidArgumentException
      */
+    public function rawQuery(array $queryRequest, array $queryParams = []): Response
+    {
+        return $this->client->execute(
+            $this->createRequest(
+                'POST',
+                'collections/' . $this->collectionName . '/points/query' . $this->queryBuild($queryParams),
+                $queryRequest
+            )
+        );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
     public function scroll(Filter|ScrollRequest|null $scrollParams = null, array $queryParams = []): Response
     {
         $body = [];
